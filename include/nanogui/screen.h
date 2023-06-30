@@ -77,6 +77,7 @@ public:
     Screen(
         const Vector2i &size,
         const std::string &caption = "Unnamed",
+        bool content_scalable = true,
         bool resizable = true,
         bool fullscreen = false,
         bool depth_buffer = true,
@@ -279,6 +280,7 @@ protected:
     Cursor m_cursor;
     std::vector<Widget *> m_focus_path;
     Vector2i m_fbsize;
+    bool m_content_scalable = true;
     float m_pixel_ratio;
     int m_mouse_state, m_modifiers;
     Vector2i m_mouse_pos;

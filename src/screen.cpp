@@ -110,7 +110,7 @@ static EM_BOOL nanogui_emscripten_resize_callback(int eventType, const Emscripte
 
 Screen::Screen()
     : Widget(nullptr), m_glfw_window(nullptr), m_nvg_context(nullptr),
-      m_cursor(Cursor::Arrow), m_background(0.3f, 0.3f, 0.32f, 1.f),
+      m_cursor(Cursor::Arrow), m_background(0.3f, 0.3f, 0.32f, 1.f), m_content_scalable(true),
       m_shutdown_glfw(false), m_fullscreen(false), m_depth_buffer(false),
       m_stencil_buffer(false), m_float_buffer(false), m_redraw(false) {
     memset(m_cursors, 0, sizeof(GLFWcursor *) * (size_t) Cursor::CursorCount);
@@ -128,12 +128,12 @@ Screen::Screen()
 #endif
 }
 
-Screen::Screen(const Vector2i &size, const std::string &caption, bool resizable,
+Screen::Screen(const Vector2i &size, const std::string &caption, bool content_scalable, bool resizable,
                bool fullscreen, bool depth_buffer, bool stencil_buffer,
                bool float_buffer, unsigned int gl_major, unsigned int gl_minor)
     : Widget(nullptr), m_glfw_window(nullptr), m_nvg_context(nullptr),
       m_cursor(Cursor::Arrow), m_background(0.3f, 0.3f, 0.32f, 1.f), m_caption(caption),
-      m_shutdown_glfw(false), m_fullscreen(fullscreen), m_depth_buffer(depth_buffer),
+      m_shutdown_glfw(false), m_fullscreen(fullscreen), m_content_scalable(content_scalable), m_depth_buffer(depth_buffer),
       m_stencil_buffer(stencil_buffer), m_float_buffer(float_buffer), m_redraw(false) {
     memset(m_cursors, 0, sizeof(GLFWcursor *) * (int) Cursor::CursorCount);
 
@@ -384,7 +384,11 @@ Screen::Screen(const Vector2i &size, const std::string &caption, bool resizable,
                 return;
             Screen* s = it->second;
 
-            s->m_pixel_ratio = get_pixel_ratio(w);
+            if (s->m_content_scalable) {
+                s->m_pixel_ratio = get_pixel_ratio(w);
+            } else {
+                s->m_pixel_ratio = 1.0f;
+            }
             s->resize_callback_event(s->m_size.x(), s->m_size.y());
         }
     );
@@ -414,8 +418,11 @@ void Screen::initialize(GLFWwindow *window, bool shutdown_glfw) {
     glfwGetWindowSize(m_glfw_window, &m_size[0], &m_size[1]);
     glfwGetFramebufferSize(m_glfw_window, &m_fbsize[0], &m_fbsize[1]);
 
-    m_pixel_ratio = get_pixel_ratio(window);
-
+    if (m_content_scalable) {
+        m_pixel_ratio = get_pixel_ratio(window);
+    } else {
+        m_pixel_ratio = 1.0f;
+    }
 #if defined(EMSCRIPTEN)
     double w, h;
     emscripten_get_element_css_size("#canvas", &w, &h);
