@@ -113,7 +113,9 @@ void TextBox::draw(NVGcontext* ctx) {
     nvgStroke(ctx);
 
     nvgFontSize(ctx, font_size());
-    nvgFontFace(ctx, "sans");
+    // nvgFontFace(ctx, "sans");
+    nvgFontFace(ctx, m_font_face.c_str());
+
     Vector2i draw_pos(m_pos.x(), m_pos.y() + m_size.y() * 0.5f + 1);
 
     float x_spacing = m_size.y() * 0.3f;
@@ -175,7 +177,8 @@ void TextBox::draw(NVGcontext* ctx) {
         }
 
         nvgFontSize(ctx, font_size());
-        nvgFontFace(ctx, "sans");
+        // nvgFontFace(ctx, "sans");
+        nvgFontFace(ctx, m_font_face.c_str());
     }
 
     switch (m_alignment) {

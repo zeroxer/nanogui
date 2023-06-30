@@ -193,6 +193,8 @@ public:
     int font_size() const;
     /// Set the font size of this widget
     void set_font_size(int font_size) { m_font_size = font_size; }
+    /// Set the font face of this widget
+    void set_font_face(std::string font_face) { m_font_face = font_face; }
     /// Return whether the font size is explicitly specified for this widget
     bool has_font_size() const { return m_font_size > 0; }
 
@@ -293,6 +295,8 @@ protected:
     bool m_focused, m_mouse_focus;
     std::string m_tooltip;
     int m_font_size;
+    std::string m_font_face = "sans";
+    // std::string m_font_face = "sans-bold";
 
     /**
      * \brief The amount of extra icon scaling used in addition the the theme's

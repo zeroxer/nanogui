@@ -48,7 +48,8 @@ Vector2i CheckBox::preferred_size(NVGcontext *ctx) const {
     if (m_fixed_size != Vector2i(0))
         return m_fixed_size;
     nvgFontSize(ctx, font_size());
-    nvgFontFace(ctx, "sans");
+    // nvgFontFace(ctx, "sans");
+    nvgFontFace(ctx, m_font_face.c_str());
     return Vector2i(
         nvgTextBounds(ctx, 0, 0, m_caption.c_str(), nullptr, nullptr) +
             1.8f * font_size(),
@@ -59,7 +60,8 @@ void CheckBox::draw(NVGcontext *ctx) {
     Widget::draw(ctx);
 
     nvgFontSize(ctx, font_size());
-    nvgFontFace(ctx, "sans");
+    // nvgFontFace(ctx, "sans");
+    nvgFontFace(ctx, m_font_face.c_str());
     nvgFillColor(ctx,
                  m_enabled ? m_theme->m_text_color : m_theme->m_disabled_text_color);
     nvgTextAlign(ctx, NVG_ALIGN_LEFT | NVG_ALIGN_MIDDLE);

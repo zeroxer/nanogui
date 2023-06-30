@@ -55,7 +55,8 @@ void Graph::draw(NVGcontext *ctx) {
         nvgFill(ctx);
     }
 
-    nvgFontFace(ctx, "sans");
+    // nvgFontFace(ctx, "sans");
+    nvgFontFace(ctx, m_font_face.c_str());
 
     if (!m_caption.empty()) {
         nvgFontSize(ctx, 14.0f);

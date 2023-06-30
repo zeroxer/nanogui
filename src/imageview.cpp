@@ -153,7 +153,8 @@ void ImageView::draw(NVGcontext *ctx) {
         float font_size = scale() / 10.f;
         float alpha = std::min(1.f, (scale() - 100) / 100.f);
         nvgFontSize(ctx, font_size);
-        nvgFontFace(ctx, "sans-bold");
+        // nvgFontFace(ctx, "sans-bold");
+        nvgFontFace(ctx, m_font_face.c_str());
         nvgTextAlign(ctx, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);
 
         Vector2i start = max(Vector2i(0), Vector2i(pos_to_pixel(Vector2f(0.f, 0.f))) - 1),

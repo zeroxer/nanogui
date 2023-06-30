@@ -640,7 +640,8 @@ void Screen::draw_widgets() {
             int tooltip_width = 150;
 
             float bounds[4];
-            nvgFontFace(m_nvg_context, "sans");
+            // nvgFontFace(m_nvg_context, "sans");
+            nvgFontFace(m_nvg_context, m_font_face.c_str());
             nvgFontSize(m_nvg_context, 15.0f);
             nvgTextAlign(m_nvg_context, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
             nvgTextLineHeight(m_nvg_context, 1.1f);

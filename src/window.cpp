@@ -29,7 +29,8 @@ Vector2i Window::preferred_size(NVGcontext *ctx) const {
         m_button_panel->set_visible(true);
 
     nvgFontSize(ctx, 18.0f);
-    nvgFontFace(ctx, "sans-bold");
+    // nvgFontFace(ctx, "sans-bold");
+    nvgFontFace(ctx, m_font_face.c_str());
     float bounds[4];
     nvgTextBounds(ctx, 0, 0, m_title.c_str(), nullptr, bounds);
 
@@ -124,7 +125,8 @@ void Window::draw(NVGcontext *ctx) {
         nvgStroke(ctx);
 
         nvgFontSize(ctx, 18.0f);
-        nvgFontFace(ctx, "sans-bold");
+        // nvgFontFace(ctx, "sans-bold");
+        nvgFontFace(ctx, m_font_face.c_str());
         nvgTextAlign(ctx, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);
 
         nvgFontBlur(ctx, 2);
